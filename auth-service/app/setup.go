@@ -22,6 +22,8 @@ func SetupAndRunApp() error {
 		return err
 	}
 
+	database.SyncDatabase()
+
 	// defer closing database
 	defer database.CloseDB()
 
@@ -30,7 +32,6 @@ func SetupAndRunApp() error {
 
 	// setup routes
 	routes.SetupRoutes(app)
-
 
 	port := os.Getenv("PORT")
 	app.Run(":" + port)

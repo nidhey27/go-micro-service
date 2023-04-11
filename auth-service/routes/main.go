@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/nidhey27/auth-service/handlers"
 )
 
 func SetupRoutes(app *gin.Engine) {
@@ -16,4 +17,6 @@ func SetupRoutes(app *gin.Engine) {
 			"description": "Auth Service",
 		})
 	})
+
+	routes.POST("/register", handlers.Signup)
 }
