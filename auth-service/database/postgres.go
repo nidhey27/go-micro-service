@@ -12,7 +12,7 @@ var (
 	db *gorm.DB
 )
 
-func ConnectToDB() *gorm.DB {
+func ConnectToDB() error {
 	DB_USER := os.Getenv("DB_USER")
 	DB_PASS := os.Getenv("DB_PASS")
 	DB_PORT := os.Getenv("DB_PORT")
@@ -23,12 +23,24 @@ func ConnectToDB() *gorm.DB {
 
 	d, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	db = d
+	return nil
+}
 
+func GetDB() *gorm.DB {
 	return db
 }
 
-func GetDB()
+func CloseDB() {
+	db, err := db.DB()
+	if err != nil {
+		panic(err)
+	}
+	err = db.Close()
+	if err != nil {
+		panic(err)
+	}
+}
